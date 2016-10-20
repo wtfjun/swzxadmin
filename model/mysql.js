@@ -16,7 +16,7 @@ var query=function(sql,callback){
 		}else{
 			conn.query(sql,function(qerr,vals,fields){
 				conn.release();
-				return callback(qerr,vals,fields);
+				callback(qerr,vals,fields);
 			});
 		}
 	});
