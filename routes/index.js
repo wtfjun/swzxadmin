@@ -1,13 +1,15 @@
 var express = require('express');
+var controller = require('../controller/indexController.js');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', controller.getClassType);
+
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
+router.post('/login',controller.login);
+
 router.get('/welcome', function(req, res, next) {
   res.render('welcome', { title: 'Express' });
 });

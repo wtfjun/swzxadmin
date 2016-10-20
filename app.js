@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var session = require('express-session');
 var app = express();
 
 // view engine setup
@@ -21,6 +21,33 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//开启session
+app.use(session({
+  resave:true,
+  saveUninitialized:false,
+  cookie:{
+      maxAge: 1000*60*60 // default session expiration is set to 1 hour
+    },
+  secret:'swzx'
+}));
+//有访问时候刷新session时间
+app.use(function(req, res, next){
+  req.session._garbage = Date();
+  req.session.touch();
+  next();
+});
+//判断用户是否登录
+app.use(function(req,res,next){
+  if (!req.session.user) {
+    if(req.url=="/login"){
+       next();//如果请求的地址是登录则通过，进行下一个请求
+    } else{
+       res.redirect('/login');
+    }
+    } else if (req.session.user) {
+        next();
+    }
+});
 
 app.use('/', routes);
 app.use('/users', users);
