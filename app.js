@@ -18,9 +18,47 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//ueditor
+var ueditor = require("ueditor");
+
+app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function (req, res, next) {
+    // ueditor 客户发起上传图片请求
+    if (req.query.action === 'uploadimage') {
+        var foo = req.ueditor;
+
+        var imgname = req.ueditor.filename;
+
+        var img_url = '/images/ueditor/';
+        res.ue_up(img_url); //你只要输入要保存的地址 。保存操作交给ueditor来做
+        res.setHeader('Content-Type', 'text/html');//IE8下载需要设置返回头尾text/html 不然json返回文件会被直接下载打开
+    }
+    //  客户端发起图片列表请求
+    else if (req.query.action === 'listimage') {
+        var dir_url = '/images/ueditor/';
+        res.ue_list(dir_url); // 客户端会列出 dir_url 目录下的所有图片
+    }
+    else if (req.query.action === 'uploadfile'){
+        var foo = req.ueditor;
+        var file = req.ueditor.filename;
+        var file_url = '/attachment';
+        res.ue_up(file_url);
+        res.setHeader('Content-Type', 'text/html');//IE8下载需要设置返回头尾text/html 不然json返回文件会被直接下载打开
+    }
+    // 客户端发起文件列表请求
+    else if (req.query.action === 'listfile') {
+      var dir_url = '/attachment';
+      res.ue_list(dir_url); // 客户端会列出 dir_url 目录下的所有图片
+    }
+    // 客户端发起其它请求
+    else {
+        // console.log('config.json')
+        res.setHeader('Content-Type', 'application/json');
+        res.redirect('/ueditor/nodejs/config.json');
+    }
+}));
 //开启session
 app.use(session({
   resave:true,
@@ -37,17 +75,18 @@ app.use(function(req, res, next){
   next();
 });
 //判断用户是否登录
-app.use(function(req,res,next){
+/*app.use(function(req,res,next){
+
   if (!req.session.user) {
-    if(req.url=="/login"){
+    if(req.path=="/login"){
        next();//如果请求的地址是登录则通过，进行下一个请求
     } else{
-       res.redirect('/login');
+       res.redirect('https://auth.szu.edu.cn/cas.aspx/login?service=http://swzx.szu.edu.cn/sdbk/swzx.asp');
     }
     } else if (req.session.user) {
         next();
     }
-});
+});*/
 
 app.use('/', routes);
 app.use('/users', users);
