@@ -1,9 +1,10 @@
 var user = require('../model/user.js');
 var query = require('../model/mysql.js');
 var DB = require('../model/baseModel.js');
+var async = require('async');
 //获取到新闻分类的详情
-exports.getsmallClass = function(req,res){
-	/*var result=[];
+/*exports.getcount = function(req,res){
+	var result=[];
 	var sqls = {
 		"donesum" : "select count(*) from swzx_msg where msg_scontent<>''",
 		"undosum" : "select count(*) from swzx_msg where msg_scontent=''",
@@ -23,24 +24,15 @@ exports.getsmallClass = function(req,res){
 			}else{
 				
 				console.log(vals);
-				callback(err,vals,fields);
+				
 			}
 		});
 	},function(err){
 		console.log("err");
-	});*/
-	query('select * from swzx_smallclass',function(err,vals,fields){
-		if(err){
-			console.log(err);
-		}else{
-			console.log(vals);
-			res.render('news-add',{
-				smallclass :　vals
-			});
-		}
 	});
+	
 }
-
+*/
 
 exports.login = function(req,res){
 	/*var account = req.body.account;

@@ -1,5 +1,6 @@
 var query = require('../model/mysql.js');
 var DB = require('../model/baseModel.js');
+var async = require('async');
 //获取未办理的事务列表
 exports.undobusinesslist = function(req,res){
 	var sql = "select msg_id,msg_title,msg_rtime from swzx_msg where msg_scontent=''";
@@ -109,4 +110,5 @@ exports.tongji = function(req,res){
 			})
 		}
 	});
+	
 }

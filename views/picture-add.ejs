@@ -1,0 +1,36 @@
+<% include ./common/_meta.ejs %>
+
+<title>新增图片</title>
+<link href="lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="page-container">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="/addpicture" enctype='multipart/form-data'>
+		
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">排序值：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="请填写1-3，数字越小越靠前，请勿填写已经有的数字" id="sort" name="sort">
+			</div>
+		</div>
+	
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">图片上传：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" name="inputFile" id="img" multiple='mutiple'>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<!-- <button  class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 上传</button> -->
+				<input type="submit" name="btnUp" class="btn btn-primary" value="上传">
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+
+<% include ./common/_footer.ejs %>
+
+</body>
+</html>

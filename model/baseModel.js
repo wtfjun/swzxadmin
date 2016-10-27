@@ -44,7 +44,8 @@ DB.prototype.add = function(req,res,data){
 		}else{
 			//res.setHeader('Content-Type', 'text/html');
 			//res.json({status:1});
-			res.redirect('/newslist');
+			
+			res.redirect('/welcome');
 		}
 	});
 }
