@@ -1,0 +1,46 @@
+﻿<% include ./common/_meta.ejs %>
+<title>首页</title>
+</head>
+<body>
+<div class="page-container">
+	<p class="f-20 text-success">欢迎使用事务中心后台管理系统子字体-勤工助学系统。用户须知:上传文件会覆盖之前的记录</p>
+	
+	
+	<form class="form form-horizontal" id="form-article-add" method="post" action="/uploadexcel" enctype='multipart/form-data'>
+	
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">excel上传：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" name="inputFile" id="img" multiple='mutiple'>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<!-- <button  class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 上传</button> -->
+				<input type="submit" name="btnUp" class="btn btn-primary" value="上传">
+				
+			</div>
+		</div>
+	</form>
+	<br />
+	<form class="form form-horizontal" id="form-article-add" method="post" action="/downloadexcel" enctype='multipart/form-data'>
+	
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">excel导出：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<a href="/downloadexcel"><button class="btn btn-primary" id="download">导出</button></a>
+			</div>
+		</div>
+	
+	</form>
+	
+</div>
+
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script> 
+<script>
+
+
+</script>
+</body>
+</html>

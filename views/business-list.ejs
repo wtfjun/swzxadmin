@@ -17,8 +17,9 @@
 				<tr class="text-c">
 					
 					<th width="80">ID</th>
+					<th width="150">提问人学号</th>
 					<th>提问标题</th>
-				
+					
 					<th width="120">提问时间</th>
 
 					<th width="120">状态</th>
@@ -31,7 +32,8 @@
 					<tr class="text-c">
 						
 						<td><%= business_list[i].msg_id %></td>
-						<td class="text-l"><u style="cursor:pointer;text-decoration:none" class="text-primary"  title="查看"><%= business_list[i].msg_title %></u></td>
+						<td><%= business_list[i].xsh_number %></td>
+						<td class="text-l"><u style="cursor:pointer;text-decoration:none" onClick="business_detail('/businessdetail',<%= business_list[i].msg_id %>,'','700')" class="text-primary"  title="查看"><%= business_list[i].msg_title %></u></td>
 
 						<td><%= business_list[i].msg_rtime %></td>
 
@@ -88,6 +90,22 @@ function del(obj,id){
 	});
 }
 
+function business_detail(url,id,w,h){
+	$.ajax({
+		type : 'post',
+		url : url,
+		data : {id:id},
+		dataType : 'json',
+		success : function(data){
+			layer.open({
+			  type: 1, 
+			  title: [data.title, 'background-color: #01AAED;text-align:center;font-size:18px;'],
+			   area: ['420px', '240px'], //宽高
+			  content:data.content
+			});
+		}
+	})
+}
 </script> 
 </body>
 </html>

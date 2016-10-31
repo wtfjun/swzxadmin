@@ -75,18 +75,27 @@ app.use(function(req, res, next){
   next();
 });
 //判断用户是否登录
-/*app.use(function(req,res,next){
+app.use(function(req,res,next){
 
   if (!req.session.user) {
-    if(req.path=="/login"){
-       next();//如果请求的地址是登录则通过，进行下一个请求
+    //如果是接口请求则跳过
+    if(req.path=="/welcome" || req.path=="/apinews" || req.path=="/apibusiness" || req.path=="/apipostbusiness" || req.path=="/studentInfo" || req.path=="/confirmInfo"){
+      next();
+    }
+    //如果是登录后的请求也跳过
+    else if(req.path=="/"){
+       next();
     } else{
-       res.redirect('https://auth.szu.edu.cn/cas.aspx/login?service=http://swzx.szu.edu.cn/sdbk/swzx.asp');
+        var CASserver = "https://auth.szu.edu.cn/cas.aspx/";//深圳大学统一身份认证URL**不能修改**
+        var ReturnURL = "http://swzx.szu.edu.cn/sdbk/s.asp";//用户认证后跳回到您的网站，根据实际情况修改
+        //header("Location: ". $CASserver ."login?service=". $ReturnURL);
+        res.redirect(CASserver+"login?service="+ReturnURL);
     }
-    } else if (req.session.user) {
-        next();
+  } 
+  else if (req.session.user) {
+      next();
     }
-});*/
+});
 
 app.use('/', routes);
 app.use('/users', users);

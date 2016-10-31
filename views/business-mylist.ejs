@@ -1,0 +1,71 @@
+﻿<% include ./common/_meta.ejs %>
+<title>资讯列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 事务管理 <span class="c-gray en">&gt;</span> 未回复列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	
+	
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort">
+			<thead>
+				<tr class="text-c">
+					
+					<th width="60">ID</th>
+					<th width="150">标题</th>
+					
+					<th width="120">提问时间</th>
+					<th width="120">回答时间</th>
+				
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var i=0; i<mybusiness.length; ++i) { %>
+					<tr class="text-c">
+						
+						<td><%= mybusiness[i].msg_id %></td>
+						<td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="business_detail('/businessdetail',<%= mybusiness[i].msg_id %>,'','700')" title="查看"><%= mybusiness[i].msg_title %></u></td>
+
+						<td><%= mybusiness[i].msg_rtime %></td>
+						<td><%= mybusiness[i].msg_stime %></td>
+					</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+	"bStateSave": true,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[1,3]}// 不参与排序的列
+	]
+});
+
+function business_detail(url,id,w,h){
+	$.ajax({
+		type : 'post',
+		url : url,
+		data : {id:id},
+		dataType : 'json',
+		success : function(data){
+			layer.open({
+			  type: 1, 
+			  title: [data.title, 'background-color: #01AAED;text-align:center;font-size:18px;'],
+			   area: ['420px', '240px'], //宽高
+			  content:data.content
+			});
+		}
+	})
+}
+</script> 
+</body>
+</html>

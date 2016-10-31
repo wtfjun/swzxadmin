@@ -9,11 +9,12 @@ function DB(tableName){
 
 
 /*
-*	data:json数据;
-*	{key:var,value:var}
-*	key为字段名，value为字段名对应的值
+*	该方法为往表里加入数据
+*	@param data:json,api:int
+*	data中的json：key为字段名,value为字段值
+*	api为判断是否是接口调用
 */
-DB.prototype.add = function(req,res,data){ 
+DB.prototype.add = function(req,res,data,api){
 	var fiedls = [];
 	var value = [];
 	for (var key in data)  
@@ -44,12 +45,19 @@ DB.prototype.add = function(req,res,data){
 		}else{
 			//res.setHeader('Content-Type', 'text/html');
 			//res.json({status:1});
-			
-			res.redirect('/welcome');
+			if(typeof(api)=='undefined'){
+				res.redirect('/welcome');
+			} 
+			else{
+				res.jsonp({status:1});
+			}
 		}
 	});
 }
-
+/*
+*	功能：删除某个表中的某条记录
+*	@param:data，json数据，包含该表的主键名称以及需要删除的主键的值
+*/
 DB.prototype.del = function(req,res,data){
 	var fiedls = [];
 	var value = [];
@@ -69,8 +77,14 @@ DB.prototype.del = function(req,res,data){
 		}
 	});
 }	
-
-DB.prototype.update = function(req,res,data,fiedlsid,id){
+/*
+*	功能:更新某个表的数据
+* 	@param:data:需要更新的数据的字段和值，为json数据
+*	@param:fiedlsid:该表的主键
+*	@param:id:主键的值
+*	@param:api:是否为前台API调用
+*/
+DB.prototype.update = function(req,res,data,fiedlsid,id,api){
 	var fiedls = [];
 	var value = [];
 	for (var key in data)  
@@ -89,8 +103,12 @@ DB.prototype.update = function(req,res,data,fiedlsid,id){
 		if(err){
 			console.log(err);
 		}else{
-			console.log('更新成功');
-			res.redirect('/welcome');
+			//console.log('更新成功');
+			if(typeof(api)=='undefined'){
+				res.redirect('/welcome');
+			}else{
+				res.jsonp({status:1});
+			}
 		}
 	});
 }
