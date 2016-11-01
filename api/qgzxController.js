@@ -50,9 +50,11 @@ exports.uploadexcel = function(req,res){
         query('delete from swzx_qgzx',function(err,vals,fields){
             query(sql,function(err,vals,fields){
               if(err){
-                console.log(err);
+                //console.log(err);
               }else{
-                console.log('xlxs导入成功');
+                //console.log('xlxs导入成功');
+                res.redirect('/qg');
+                //res.json({status:1});
               }
             });
         });

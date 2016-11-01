@@ -40,18 +40,19 @@ app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function (req, re
         var dir_url = '/images/ueditor/';
         res.ue_list(dir_url); // 客户端会列出 dir_url 目录下的所有图片
     }
-    else if (req.query.action === 'uploadfile'){
+   /* else if (req.query.action === 'uploadfile'){
         var foo = req.ueditor;
         var file = req.ueditor.filename;
         var file_url = '/attachment';
         res.ue_up(file_url);
         res.setHeader('Content-Type', 'text/html');//IE8下载需要设置返回头尾text/html 不然json返回文件会被直接下载打开
+         
     }
     // 客户端发起文件列表请求
     else if (req.query.action === 'listfile') {
       var dir_url = '/attachment';
       res.ue_list(dir_url); // 客户端会列出 dir_url 目录下的所有图片
-    }
+    }*/
     // 客户端发起其它请求
     else {
         // console.log('config.json')
@@ -76,10 +77,9 @@ app.use(function(req, res, next){
 });
 //判断用户是否登录
 app.use(function(req,res,next){
-
   if (!req.session.user) {
     //如果是接口请求则跳过
-    if(req.path=="/welcome" || req.path=="/apinews" || req.path=="/apibusiness" || req.path=="/apipostbusiness" || req.path=="/studentInfo" || req.path=="/confirmInfo"){
+    if(req.path=='/apinav' || req.path=="/welcome" || req.path=="/apinews" || req.path=="/apibusiness" || req.path=="/apipostbusiness" || req.path=="/studentInfo" || req.path=="/confirmInfo"){
       next();
     }
     //如果是登录后的请求也跳过

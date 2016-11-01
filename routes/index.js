@@ -8,7 +8,8 @@ var usercontroller = require('../controller/usercontroller.js');
 //api调用的控制器
 var apinewscontroller = require('../api/newsController.js');
 var apibusinesscontroller = require('../api/businessController.js');
-var apiqgzxcontroller = require('../api/qgzxcontroller.js');
+var apiqgzxcontroller = require('../api/qgzxController.js');
+var navcontroller = require('../api/navController.js');
 var router = express.Router();
 
 /* GET home page. */
@@ -20,6 +21,9 @@ router.get('/',controller.getinfo);
 router.get('/welcome', function(req, res, next) {
   res.render('welcome', { title: '欢迎使用' });
 });
+router.get('/404',function(req,res,next){
+	res.render('404',{title:'你没有权限使用'});
+})
 //新闻相关
 router.get('/addnews', newscontroller.getsmallClass);
 router.post('/addnews',newscontroller.addnews);
@@ -56,7 +60,14 @@ router.get('/addpicture', function(req, res, next) {
 });
 router.post('/addpicture',picturecontroller.addpicture);
 router.post('/delpicture',picturecontroller.delpicture);
-
+//导航栏管理
+router.get('/nav',navcontroller.navlist);
+router.get('/addnav',function(req,res,next){
+	res.render('nav-add',{title:'添加导航栏'
+	});
+});
+router.post('/addnav',navcontroller.addnav);
+router.post('/delnav',navcontroller.delnav);
 //勤工助学系统
 router.post('/uploadexcel',apiqgzxcontroller.uploadexcel);
 router.get('/qg',function(req,res,next){
@@ -67,11 +78,15 @@ router.get('/confirmInfo',apiqgzxcontroller.confirmInfo);//确认信息
 router.post('/downloadexcel',apiqgzxcontroller.downloadexcel);
 //api路由
 router.get('/apinews',apinewscontroller.getnews);
+//总统待遇的api之获取新闻公告
+router.get('/apinewsgg',apinewscontroller.getnewsgg);
+//总统待遇的api之获取办事指南
+router.get('/apinewsguide',apinewscontroller.getguide);
 
 router.get('/apibusiness',apibusinesscontroller.getbusiness);
 router.get('/apipostbusiness',apibusinesscontroller.addbusiness);
 
-
+router.get('/apinav',navcontroller.getnav);
 //深大验证接口转发
 router.get('/infoapi',function(req,res){
 	var ticket = req.query.ticket;

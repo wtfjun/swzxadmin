@@ -1,7 +1,6 @@
 var query = require('../model/mysql.js');
 var DB = require('../model/baseModel.js');
 var multiparty = require('multiparty');
-var util = require('util');
 var fs = require('fs');
 
 //获取全部图片
@@ -24,7 +23,6 @@ exports.addpicture = function(req,res){
    //上传完成后处理
     form.parse(req, function(err, fields, files) {
 
-      console.log(fields.sort);
       var filesTmp = JSON.stringify(files,null,2);
   
       if(err){
@@ -41,6 +39,7 @@ exports.addpicture = function(req,res){
          } else {
             //console.log('rename ok');
             dstPath = dstPath.slice(8);
+            dstPath = "http://"+req.hostname+":3000"+dstPath;
             var picture = new DB('swzx_picture');
             var data={path:dstPath,sort:fields.sort};
             picture.add(req,res,data);

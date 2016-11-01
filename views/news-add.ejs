@@ -5,7 +5,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="/addnews">
+	<form class="form form-horizontal" id="form-article-add" method="post" action="/addnews" enctype='multipart/form-data'>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>文章标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -35,6 +35,12 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">(可选)</span>上传附件：</label>
+			<div class="formControls col-xs-8 col-sm-9"> 
+				<input type="file" name="inputFile">
+			</div>
+		</div>
+		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
 				<button class="btn btn-primary radius" type="submit" id="submit"><i class="Hui-iconfont">&#xe632;</i> 发布</button>
 				
@@ -56,35 +62,6 @@
 
 <!--/请在上方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/javascripts/ueditor.js"></script>
-<script type="text/javascript">
-	$(function(){
-	    $("#submit").click(function(){
-	        var params ={
-	          title: $("#title").val(),
-	          smallclass: $("#smallclass").val(),
-	          content : $('#editorValue').val()
-	        };
-	    
-	        $.ajax({
-	          type : 'post',
-	          data : params,
-	          url : '/addnews',
-	          dataType: 'json',
-	          
-	          success : function(data){
-	            if(data.status){
-	            	layer.alert('操作成功');
-	            	location.href='/';
-	            }else{
-	            	layer.alert('由于系统原因，发布失败');
-	            	location.href='/addnews';
-	            }
-	          }
-	         
-	      });
-	    });
-	  });
 
-</script>
 </body>
 </html>

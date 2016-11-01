@@ -31,11 +31,15 @@ exports.getinfo = function(req,res){
 				    		console.log(err);
 				    	}else{
 				    		//console.log(vals);
-				    		req.session.permission = vals[0].permission;
-				    		res.render('index',{
-						    	permission : vals[0].permission,
-						    	name : req.session.name
-						    });
+				    		if(vals.length==0){
+				    			res.redirect('/404');
+				    		}else{
+					    		req.session.permission = vals[0].permission;
+					    		res.render('index',{
+							    	permission : vals[0].permission,
+							    	name : req.session.name
+							    });
+					    	}
 				    	}
 				    });
 				    

@@ -4,6 +4,7 @@ exports.getbusiness = function(req,res){
 	var msg_id = req.query.msg_id;//根据id获取内容
 	var keyword = req.query.keyword;//根据关键词获取
 	var xsh_number = req.query.number;//根据学号获取询问过的事务
+	var studentno = req.query.stuno;//获取邮箱和手机号
 	//根据msg_id查找信息
 	if(typeof(msg_id)!='undefined'){
 		var sql = "select msg_title,msg_rtime,msg_stime,msg_sbmname,msg_content,msg_scontent from swzx_msg where msg_id="+msg_id;
@@ -39,7 +40,22 @@ exports.getbusiness = function(req,res){
 			}
 		});
 		return;
-	} 	//获取全部
+	} 	
+
+	//根据学号获取手机号和邮箱
+	if(typeof(studentno)!='undefined'){
+		var sql = "select xsh_tel,xsh_mail from swzx_msg where xsh_number="+xsh_number+" order by msg_rtime desc limit 1";
+		query(sql,function(err,vals,fields){
+			if(err){
+				console.log(err);
+			}else{
+				res.jsonp({business:vals});
+			}
+		});
+		return;
+	}
+
+	//获取全部
 	
 	var sql = "select msg_id,msg_title,msg_rtime,msg_stime from swzx_msg where msg_oorc=1 order by msg_rtime desc";
 	query(sql,function(err,vals,fields){

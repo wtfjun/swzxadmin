@@ -36,7 +36,7 @@ DB.prototype.add = function(req,res,data,api){
 		sql = sql + "'" + value[i] + "'" + ",";
 	}
 	sql = sql + "'" + value[i] + "'" + ")";
-	console.log("sql:"+sql);
+	//console.log("sql:"+sql);
 	query(sql,function(err,vals,fiedls){
 		if(err){
 			console.log(err);
