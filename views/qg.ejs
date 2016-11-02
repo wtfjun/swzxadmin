@@ -53,7 +53,7 @@ jQuery.validator.addMethod("checkexcel", function(value, element) {
     }
 }, "上传excel表格必须为xlsx格式");
 
-$(document).ready(function(){    
+function uploadexcel(){    
         $("#excel").validate({  
                 rules: {  
                     "inputFile": {  
@@ -69,7 +69,8 @@ $(document).ready(function(){
                 }
              
         });  
-    }); 
+        alert('上传成功');
+} 
 
 </script>
 </body>
