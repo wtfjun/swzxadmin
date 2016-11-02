@@ -5,10 +5,10 @@
 </head>
 <body>
 <div class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="/addnav">
+	<form class="form form-horizontal" id="form-nav-add" name="form-nav-add" method="post" action="/addnav">
 		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">导航栏名称：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>导航栏名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" name="nav">
 			</div>
@@ -45,6 +45,36 @@
 </div>
 
 <% include ./common/_footer.ejs %>
-
+<script type="text/javascript">
+    $(document).ready(function(){    
+        $("#form-nav-add").validate({  
+            rules: {  
+                nav: {  
+                    required: true  
+                },  
+                url:{  
+                    required: true            
+                },  
+                navid:{  
+                    required:true  
+                } 
+            },  
+            messages: {  
+                nav: {  
+                    required: "请输入导航栏名称"  
+                },  
+                url: {  
+                    required: "请输入url"  
+                },  
+                navid:{  
+                    required: "请选择分类"  
+                } 
+            }
+             
+        });  
+    });  
+  
+      
+</script>  
 </body>
 </html>

@@ -24,6 +24,12 @@ router.get('/welcome', function(req, res, next) {
 router.get('/404',function(req,res,next){
 	res.render('404',{title:'你没有权限使用'});
 })
+//退出登录
+router.get('/logout',function(req,res,next){
+	var url = "http://"+req.hostname+":3000";
+	delete req.session;//清除session
+	res.redirect('https://ia.szu.edu.cn/cas/logout?service='+url);
+});
 //新闻相关
 router.get('/addnews', newscontroller.getsmallClass);
 router.post('/addnews',newscontroller.addnews);

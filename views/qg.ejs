@@ -6,12 +6,12 @@
 	<p class="f-20 text-success">欢迎使用事务中心后台管理系统子字体-勤工助学系统。用户须知:上传文件会覆盖之前的记录</p>
 	
 	
-	<form class="form form-horizontal" id="excel" method="post" action="/uploadexcel" enctype='multipart/form-data'>
+	<form class="form form-horizontal" id="excel" name="excel" method="post" action="/uploadexcel" enctype='multipart/form-data'>
 	
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">excel上传：</label>
+			<label class="form-label col-xs-4 col-sm-2">excel上传(后缀为xlsx)：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="file" name="inputFile" id="img" multiple='mutiple'>
+				<input type="file" name="inputFile" id="inputFile" multiple='mutiple'>
 			</div>
 		</div>
 		<div class="row cl">
@@ -36,24 +36,40 @@
 	
 </div>
 
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script> 
-<script>
+<% include ./common/_footer.ejs %>
+<script type="text/javascript">
 
-function uploadexcel()
-{
-	$.ajax({
-	type: "POST",
-	url: "/uploadexcel",
-	data:$('#excel').serialize(),// 你的formid
-	error: function(request) {
-		alert('上传');
-	},
-	success: function(data) {
-		alert('上传成功');
-	}
-	});
-}
+jQuery.validator.addMethod("checkexcel", function(value, element) {
+    var filepath=$("#inputFile").val();
+    //获得上传文件名
+    var fileArr=filepath.split("\\");
+    var fileTArr=fileArr[fileArr.length-1].toLowerCase().split(".");
+    var filetype=fileTArr[fileTArr.length-1];
+    //切割出后缀文件名
+    if(filetype != "xlsx"){
+        return false;
+    }else{
+        return true;
+    }
+}, "上传excel表格必须为xlsx格式");
+
+$(document).ready(function(){    
+        $("#excel").validate({  
+                rules: {  
+                    "inputFile": {  
+                        required: true,  
+                        checkexcel:true  
+                    }  
+                },  
+                messages: {  
+                    "inputFile": {  
+                        required: "请选择上传文件" 
+                       
+                    }  
+                }
+             
+        });  
+    }); 
 
 </script>
 </body>

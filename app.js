@@ -77,6 +77,7 @@ app.use(function(req, res, next){
 });
 //判断用户是否登录
 app.use(function(req,res,next){
+
   if (!req.session.user) {
     //如果是接口请求则跳过
     if(req.path=='/apinav' || req.path=="/welcome" || req.path=="/apinews" || req.path=="/apibusiness" || req.path=="/apipostbusiness" || req.path=="/studentInfo" || req.path=="/confirmInfo"){

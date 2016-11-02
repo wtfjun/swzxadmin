@@ -53,8 +53,7 @@ exports.uploadexcel = function(req,res){
                 //console.log(err);
               }else{
                 //console.log('xlxs导入成功');
-                res.redirect('/qg');
-                //res.json({status:1});
+                res.json({status:1});
               }
             });
         });

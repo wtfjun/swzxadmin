@@ -4,7 +4,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" action="/addmember" class="form form-horizontal" id="form-member-add">
+	<form action="" method="post" action="/addmember" class="form form-horizontal" id="form-member-add" name="form-member-add">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学号或者工号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -38,6 +38,28 @@
 
 <!--请在下方写此页面业务相关的脚本--> 
 <script type="text/javascript">
+    $(document).ready(function(){    
+        $("#form-member-add").validate({  
+            rules: {  
+                accountno: {  
+                    required: true  
+                },  
+                permission:{  
+                    required: true            
+                }  
+
+            },  
+            messages: {  
+                accountno: {  
+                    required: "请输入学号或者工号"  
+                },  
+                permission: {  
+                    required: "请选择分类"  
+                }
+            }
+             
+        });  
+    });  
 
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
