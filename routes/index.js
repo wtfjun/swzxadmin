@@ -76,9 +76,7 @@ router.post('/addnav',navcontroller.addnav);
 router.post('/delnav',navcontroller.delnav);
 //勤工助学系统
 router.post('/uploadexcel',apiqgzxcontroller.uploadexcel);
-router.get('/qg',function(req,res,next){
-	res.render('qg',{title:'勤工助学系统'});
-});
+router.get('/qg',apiqgzxcontroller.qglist);
 router.get('/studentInfo',apiqgzxcontroller.studentInfo);//获取信息路由
 router.get('/confirmInfo',apiqgzxcontroller.confirmInfo);//确认信息
 router.post('/downloadexcel',apiqgzxcontroller.downloadexcel);

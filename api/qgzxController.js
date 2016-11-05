@@ -5,6 +5,25 @@ var fs = require('fs');
 var xlsx = require("node-xlsx");
 
 /*
+* 功能：取出数据库中勤工助学的信息
+*
+*/
+exports.qglist = function(req,res){
+  var sql = "select * from swzx_qgzx";
+  query(sql,function(err,vals,fields){
+    if(err){
+      console.log(err);
+    }else{
+      res.render('qg',{
+        title:'勤工信息',
+        qg_list : vals
+      })
+    }
+  })
+}
+
+
+/*
 * 功能:处理上传的excel表格并存入数据库
 */
 exports.uploadexcel = function(req,res){
