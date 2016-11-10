@@ -4,7 +4,7 @@ var controller = require('../controller/indexController.js');
 var newscontroller = require('../controller/newsController.js');
 var businesscontroller = require('../controller/businessController.js');
 var picturecontroller = require('../controller/pictureController.js');
-var usercontroller = require('../controller/usercontroller.js');
+var usercontroller = require('../controller/userController.js');
 //api调用的控制器
 var apinewscontroller = require('../api/newsController.js');
 var apibusinesscontroller = require('../api/businessController.js');
@@ -28,6 +28,7 @@ router.get('/404',function(req,res,next){
 router.get('/logout',function(req,res,next){
 	var url = "http://"+req.hostname+":3000";
 	delete req.session;//清除session
+	console.log(req.session);
 	res.redirect('https://ia.szu.edu.cn/cas/logout?service='+url);
 });
 //新闻相关
@@ -79,6 +80,7 @@ router.post('/uploadexcel',apiqgzxcontroller.uploadexcel);
 router.get('/qg',apiqgzxcontroller.qglist);
 router.get('/studentInfo',apiqgzxcontroller.studentInfo);//获取信息路由
 router.get('/confirmInfo',apiqgzxcontroller.confirmInfo);//确认信息
+router.get('/changeCardNo',apiqgzxcontroller.changeCardNo);//修改卡号
 router.post('/downloadexcel',apiqgzxcontroller.downloadexcel);
 //api路由
 router.get('/apinews',apinewscontroller.getnews);

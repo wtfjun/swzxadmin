@@ -8,14 +8,14 @@ exports.getinfo = function(req,res){
 	//console.log(ticket);
 	if(typeof(ticket)!='undefined'){
 		//判断是否已经有了session值，有的话则跳过
-		if(req.session.user){
+		if(typeof(req.session.user)=='!undefined'){
 			res.render('index',{
 		    	permission : req.session.permission,
 		    	name : req.session.name
 		    });
 		    
 		}else{
-			var url = 'http://172.29.40.13/qgzx/?ticket='+ticket;
+			var url = 'http://210.39.2.88/qgzx/?ticket='+ticket;
 			request.get(url,function(error,response,body){
 				if (!error && response.statusCode == 200) {
 				    body = eval("(" + body + ")");//把获取的数据转化为json

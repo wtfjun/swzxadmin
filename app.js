@@ -65,7 +65,7 @@ app.use(session({
   resave:true,
   saveUninitialized:false,
   cookie:{
-      maxAge: 1000*60*60 // default session expiration is set to 1 hour
+      maxAge: 2000*60*60 // default session expiration is set to 2 hour
     },
   secret:'swzx'
 }));
@@ -80,7 +80,7 @@ app.use(function(req,res,next){
 
   if (!req.session.user) {
     //如果是接口请求则跳过
-    if(req.path=='/apinav' || req.path=="/welcome" || req.path=="/apinews" || req.path=="/apibusiness" || req.path=="/apipostbusiness" || req.path=="/studentInfo" || req.path=="/confirmInfo"){
+    if(req.path=='/changeCardNo' || req.path=='/apinav' || req.path=="/welcome" || req.path=="/apinews" || req.path=="/apibusiness" || req.path=="/apipostbusiness" || req.path=="/studentInfo" || req.path=="/confirmInfo"){
       next();
     }
     //如果是登录后的请求也跳过
@@ -96,6 +96,13 @@ app.use(function(req,res,next){
   else if (req.session.user) {
       next();
     }
+});
+
+process.on('uncaughtException', function (err) {
+  //打印出错误
+  console.log(err);
+  //打印出错误的调用栈方便调试
+  console.log(err.stack);
 });
 
 app.use('/', routes);
