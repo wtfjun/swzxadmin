@@ -80,8 +80,8 @@ app.use(function(req,res,next){
 
   if (!req.session.user) {
     //如果是接口请求则跳过
-    if(req.path=='/changeCardNo' || req.path=='/apinav' || req.path=="/welcome" || req.path=="/apinews" || req.path=="/apibusiness" || req.path=="/apipostbusiness" || req.path=="/studentInfo" || req.path=="/confirmInfo"){
-      next();
+    if(req.path=="/changeCardNo" || req.path=="/apinav" || req.path=="/apinewsgg" || req.path=="/apinewsguide" || req.path=="/welcome" || req.path=="/apinews" || req.path=="/apibusiness" || req.path=="/apipostbusiness" || req.path=="/studentInfo" || req.path=="/confirmInfo"){
+       next();
     }
     //如果是登录后的请求也跳过
     else if(req.path=="/"){
